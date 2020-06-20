@@ -6,6 +6,10 @@ const express = require("express"),
 
 app.listen(process.env.PORT || 1337, () => console.log("webhook live"));
 
+app.get("/", (req, res) => {
+  res.send("Successfully deployed");
+});
+
 // webhook POST endpoint
 app.post("/webhook", (req, res) => {
   let body = req.body;
@@ -30,8 +34,7 @@ app.post("/webhook", (req, res) => {
 
 // webhook GET endpoint
 app.get("/webhook", (req, res) => {
-  // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "TEST_UMBRELLA";
+  let VERIFY_TOKEN = process.env.VERIFICATION_TOKEN;
 
   // Parse the query params
   let mode = req.query["hub.mode"];
